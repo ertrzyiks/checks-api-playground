@@ -1,9 +1,16 @@
 module.exports = async ({context, github}) => {
+    const { sha } = context
     const { owner, repo } = context.repo
 
-    console.log(context)
-
     const annotations = []
+
+    // annotations.push({
+    //     path,
+    //     start_line: line,
+    //     end_line: line,
+    //     annotation_level: annotationLevel,
+    //     message: `[${ruleId}] ${message}`
+    // })
 
     await github.checks.create({
         owner,
@@ -13,6 +20,11 @@ module.exports = async ({context, github}) => {
         status: 'completed',
         conclusion: annotations.length > 0 ? 'failure' : 'success',
         annotations,
-        head_sha: process.env.GITHUB_SHA
+        output: {
+            title: 'This is the check title',
+            summary: `${errorCount} error(s), ${warningCount} warning(s) found`,
+            annotations
+        },
+        head_sha: sha
     })
 }
