@@ -4,13 +4,13 @@ module.exports = async ({context, github}) => {
 
     const annotations = []
 
-    // annotations.push({
-    //     path,
-    //     start_line: line,
-    //     end_line: line,
-    //     annotation_level: annotationLevel,
-    //     message: `[${ruleId}] ${message}`
-    // })
+    annotations.push({
+        path: 'index.js',
+        start_line: 1,
+        end_line: 1,
+        annotation_level: 'warning', // failure
+        message: `[0] This is lame`
+    })
 
     await github.checks.create({
         owner,
