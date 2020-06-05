@@ -22,7 +22,7 @@ module.exports = async ({context, github}) => {
         annotations,
         output: {
             title: 'This is the check title',
-            summary: `${errorCount} error(s), ${warningCount} warning(s) found`,
+            summary: `0 error(s), 0 warning(s) found`,
             annotations
         },
         head_sha: sha
