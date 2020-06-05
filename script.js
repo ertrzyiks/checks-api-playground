@@ -1,3 +1,10 @@
+function chunk(arr, chunkSize) {
+    var R = [];
+    for (var i=0,len=arr.length; i<len; i+=chunkSize)
+        R.push(arr.slice(i,i+chunkSize));
+    return R;
+}
+
 module.exports = async ({context, github}) => {
     const { sha } = context
     const { owner, repo } = context.repo
@@ -20,47 +27,40 @@ module.exports = async ({context, github}) => {
         message: `[0] This is lame`
     })
 
+    const title = 'This is the check title'
+    const summary = `${annotations} error(s)`
+
     const { data }  = await github.checks.create({
         owner,
         repo,
         name: 'Test check',
         started_at: new Date(),
-        status: 'in_progress',
+        completed_at: new Date(),
+        status: 'completed',
         conclusion: annotations.length > 0 ? 'failure' : 'success',
+        output: {
+            title,
+            summary
+        },
         head_sha: sha
     })
 
     const { id } = data
 
-    await github.checks.update({
-        check_run_id: id,
-        owner,
-        repo,
-        name: 'Test check',
-        started_at: new Date(),
-        status: 'completed',
-        conclusion: annotations.length > 0 ? 'failure' : 'success',
-        output: {
-            title: 'This is the check title',
-            summary: `0 error(s), 0 warning(s) found`,
-            annotations: [annotations[0]]
-        },
-        head_sha: sha
-    })
 
-    await github.checks.update({
-        check_run_id: id,
-        owner,
-        repo,
-        name: 'Test check',
-        started_at: new Date(),
-        status: 'completed',
-        conclusion: annotations.length > 0 ? 'failure' : 'success',
-        output: {
-            title: 'This is the check title',
-            summary: `0 error(s), 0 warning(s) found`,
-            annotations: [annotations[1]]
-        },
-        head_sha: sha
-    })
+    const chunks = chunk(annotations, 50)
+
+    for (const chunk of chunks) {
+        await github.checks.update({
+            check_run_id: id,
+            owner,
+            repo,
+            output: {
+                title,
+                summary,
+                annotations: chunk
+            },
+            head_sha: sha
+        })
+    }
 }
