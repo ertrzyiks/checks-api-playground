@@ -28,7 +28,7 @@ module.exports = async ({context, github}) => {
     })
 
     const title = 'This is the check title'
-    const summary = `${annotations} error(s)`
+    const summary = `${annotations.length} error(s)`
 
     const { data }  = await github.checks.create({
         owner,
