@@ -27,6 +27,9 @@ module.exports = async ({context, github}) => {
         message: `[0] This is lame`
     })
 
+    const title = 'This is the check title'
+    const summary = `${annotations} error(s)`
+
     const { data }  = await github.checks.create({
         owner,
         repo,
@@ -36,8 +39,8 @@ module.exports = async ({context, github}) => {
         status: 'completed',
         conclusion: annotations.length > 0 ? 'failure' : 'success',
         output: {
-            title: 'This is the check title',
-            summary: `0 error(s), 0 warning(s) found`,
+            title,
+            summary
         },
         head_sha: sha
     })
@@ -53,7 +56,8 @@ module.exports = async ({context, github}) => {
             owner,
             repo,
             output: {
-                title: 'This is the check title',
+                title,
+                summary,
                 annotations: chunk
             },
             head_sha: sha
