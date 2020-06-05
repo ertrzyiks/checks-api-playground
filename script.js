@@ -53,6 +53,7 @@ module.exports = async ({context, github}) => {
             owner,
             repo,
             output: {
+                title: 'This is the check title',
                 annotations: chunk
             },
             head_sha: sha
