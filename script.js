@@ -16,7 +16,7 @@ module.exports = async ({context, github}) => {
         path: 'index.js',
         start_line: 2,
         end_line: 2,
-        annotation_level: '', // failure
+        annotation_level: 'notice', // failure
         message: `[0] This is lame`
     })
 
