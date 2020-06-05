@@ -25,13 +25,8 @@ module.exports = async ({context, github}) => {
         repo,
         name: 'Test check',
         started_at: new Date(),
-        status: 'completed',
+        status: 'in_progress',
         conclusion: annotations.length > 0 ? 'failure' : 'success',
-        output: {
-            title: 'This is the check title',
-            summary: `0 error(s), 0 warning(s) found`,
-            annotations
-        },
         head_sha: sha
     })
 
