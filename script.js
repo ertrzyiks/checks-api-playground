@@ -1,5 +1,7 @@
 module.exports = async ({context, github}) => {
-    const { owner, repo, sha } = context.repo
+    const { owner, repo } = context.repo
+
+    console.log(context)
 
     github.checks.create({
         owner,
@@ -7,6 +9,6 @@ module.exports = async ({context, github}) => {
         name: 'Test check',
         started_at: new Date(),
         status: 'in_progress',
-        head_sha: sha
+        head_sha: process.env.GITHUB_SHA
     })
 }
