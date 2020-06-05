@@ -3,12 +3,16 @@ module.exports = async ({context, github}) => {
 
     console.log(context)
 
-    github.checks.create({
+    const annotations = []
+
+    await github.checks.create({
         owner,
         repo,
         name: 'Test check',
         started_at: new Date(),
-        status: 'in_progress',
+        status: 'completed',
+        conclusion: annotations.length > 0 ? 'failure' : 'success',
+        annotations,
         head_sha: process.env.GITHUB_SHA
     })
 }
