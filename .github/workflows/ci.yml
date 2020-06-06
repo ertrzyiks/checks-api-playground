@@ -22,3 +22,11 @@ jobs:
           const path = require('path')
           const scriptPath = path.resolve('./script.js')
           console.log(await require(scriptPath)({context, github}))
+
+    - uses: actions/github-script@v2
+      with:
+        github-token: ${{secrets.GITHUB_TOKEN}}
+        script: |
+          const path = require('path')
+          const scriptPath = path.resolve('./script2.js')
+          console.log(await require(scriptPath)({context, github}))
