@@ -11,7 +11,7 @@ module.exports = async ({context, github}) => {
 
     const { id } = data
 
-    await octokit.repos.createDeploymentStatus({
+    await github.repos.createDeploymentStatus({
       owner,
       repo,
       deployment_id: id,
