@@ -5,6 +5,7 @@ module.exports = async ({context, github}) => {
     github.repos.createDeployment({
         owner,
         repo,
-        ref: sha
+        ref: sha,
+        required_contexts: []
     })
 }
