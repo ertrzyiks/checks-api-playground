@@ -2,10 +2,19 @@ module.exports = async ({context, github}) => {
     const { sha } = context
     const { owner, repo } = context.repo
 
-    github.repos.createDeployment({
+    const { data } = await github.repos.createDeployment({
         owner,
         repo,
         ref: sha,
         required_contexts: []
+    })
+
+    const { id } = data
+
+    await octokit.repos.createDeploymentStatus({
+      owner,
+      repo,
+      deployment_id: id,
+      state: 'success',
     })
 }
