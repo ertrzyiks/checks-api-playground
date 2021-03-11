@@ -12,4 +12,4 @@ jobs:
       - name: error
         run: echo "::error file=script.js,line=10,col=15::Something went wrong"
       - name: error
-        run: echo "::error file=ci.yml,line=10,col=15::Something went wrong"
+        run: echo "::error file=.github/workflows/ci.yml,line=10,col=15::Something went wrong"
