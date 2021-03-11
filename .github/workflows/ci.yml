@@ -6,19 +6,8 @@ on:
       - master
 
 jobs:
-  build:
+  unittests:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js 12
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - uses: actions/github-script@v2
-      with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          const path = require('path')
-          const scriptPath = path.resolve('./script.js')
-          console.log(await require(scriptPath)({context, github}))
+      - name: error
+        run: echo "::error file=script.js,line=10,col=15::Something went wrong"
