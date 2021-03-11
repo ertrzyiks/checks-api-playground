@@ -6,10 +6,15 @@ on:
       - master
 
 jobs:
-  unittests:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - name: error
-        run: echo "::error file=script.js,line=10,col=15::Something went wrong"
-      - name: error
-        run: echo "::error file=.github/workflows/ci.yml,line=10,col=15::Something went wrong"
+     - uses: actions/checkout@v2
+     - name: Use Node.js 12
+       uses: actions/setup-node@v1
+       with:
+         node-version: 12
+     - name: Install
+       run: yarn install
+     - name: Test
+       run: yarn test
