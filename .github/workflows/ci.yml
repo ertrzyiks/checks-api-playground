@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: error
-        run: echo "::error file=script.js,line=10,col=15::Something went wrong"
+        run: echo "::error file=/app/script.js,line=10,col=15::Something went wrong"
